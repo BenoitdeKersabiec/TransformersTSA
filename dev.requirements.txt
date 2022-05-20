@@ -1,0 +1,6 @@
+requests
+
+# Linting
+black
+isort
+pylint
