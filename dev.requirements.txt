@@ -1,6 +1,6 @@
-requests
+-e .
 
 # Linting
-black
-isort
-pylint
+black>=22.3.0,<23.0.0
+isort>=5.10.1,<5.11
+pylint>=2.13.0,<2.14
