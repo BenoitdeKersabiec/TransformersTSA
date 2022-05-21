@@ -20,7 +20,7 @@ jobs:
         pip install -r dev.requirements.txt
     - name: Analysing the code with pylint
       run: |
-        isort $(git ls-files '*.py') --check-only --profile black --line-length=120 --nlb=LOCALFOLDER --rr --ca --dt
-        black $(git ls-files '*.py') --check
-        pylint $(git ls-files '*.py')
+        isort src --check-only --profile black --line-length=120 --nlb=LOCALFOLDER --rr --ca --dt
+        black src --check
+        pylint src
         
