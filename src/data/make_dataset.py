@@ -1,9 +1,10 @@
-import requests
-import pandas as pd
-from typing import Dict
-from sacred import Experiment
-from os.path import join, isfile
 import shutil
+from os.path import isfile, join
+from typing import Dict
+
+import pandas as pd
+import requests
+from sacred import Experiment
 
 data_ingredient = Experiment("data")
 
@@ -62,10 +63,10 @@ def get_data(data_folder: str, data_file: str, force_pull: bool):
         A dataframe with the ohlc data
     """
 
-    print("------------------------------------------- Loading Data -------------------------------------------")
-    data_path: str = join(
-        data_folder, "processed", data_file
+    print(
+        "------------------------------------------- Loading Data -------------------------------------------"
     )
+    data_path: str = join(data_folder, "processed", data_file)
 
     if isfile(data_path) and not force_pull:
         print("Reading data from", data_path)
