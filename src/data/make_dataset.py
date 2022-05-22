@@ -1,12 +1,11 @@
 import shutil
 from os.path import isfile, join
-from typing import Dict
 
 import pandas as pd
 import requests
-from sacred import Experiment
+from sacred import Ingredient
 
-data_ingredient = Experiment("data")
+data_ingredient = Ingredient("data")
 
 
 @data_ingredient.config
@@ -77,8 +76,3 @@ def get_data(data_folder: str, data_file: str, force_pull: bool):
         data = pull_data()
 
     return data
-
-
-@data_ingredient.automain
-def main():
-    get_data()

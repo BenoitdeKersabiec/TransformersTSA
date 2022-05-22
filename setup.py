@@ -11,6 +11,7 @@ setup(
         "pandas>=1.4.2,<1.5.0",
         "gym>=0.23.1,<0.24.0",
         "sacred>=0.8.2,<0.9.0",
+        "--pre torch --extra-index-url https://download.pytorch.org/whl/nightly/cpu"
     ],
     python_requires=">=3.9.12,<3.10"
 )
