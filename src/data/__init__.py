@@ -1,1 +1,2 @@
-from src.data.make_dataset import get_data, data_ingredient
+"""Data module"""
+from src.data.make_dataset import data_ingredient, get_data

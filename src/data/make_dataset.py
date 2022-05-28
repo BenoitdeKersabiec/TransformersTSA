@@ -1,3 +1,4 @@
+"""Script to pull/load data"""
 import shutil
 from os.path import isfile, join
 

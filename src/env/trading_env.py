@@ -22,11 +22,7 @@ class TradingEnv(gym.Env):
 
     @env_ingredient.capture
     def __init__(
-            self,
-            data: pd.DataFrame,
-            initial_balance: int,
-            fee: float,
-            lookback_window: int
+        self, data: pd.DataFrame, initial_balance: int, fee: float, lookback_window: int
     ):
         super().__init__()
         self.data = data
@@ -36,5 +32,3 @@ class TradingEnv(gym.Env):
         self.fee = fee
 
         self.current_date = self.data.index[self.lookback_window]
-
-        

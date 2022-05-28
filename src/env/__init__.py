@@ -1,1 +1,2 @@
-from src.env.trading_env import TradingEnv, env_ingredient
+"""Environment module"""
+from src.env.trading_env import env_ingredient, TradingEnv
