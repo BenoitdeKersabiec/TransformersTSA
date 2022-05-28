@@ -6,6 +6,7 @@ from src.models import ModelWrapper
 
 class RandomModel(ModelWrapper):
     """A random model to check that the environment is working"""
+
     def __init__(self, device):
         super().__init__(device)
 

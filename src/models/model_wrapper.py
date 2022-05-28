@@ -3,6 +3,7 @@
 
 class ModelWrapper:
     """Base class for model to run on env"""
+
     def __init__(self, device):
         self.device = device
 
