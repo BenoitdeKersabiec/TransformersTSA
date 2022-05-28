@@ -43,6 +43,7 @@ def pull_data(api_url: str, data_file: str, data_folder: str) -> pd.DataFrame:
     data.rename(columns={"Volume USDT": "volume"}, inplace=True)
     data = data[["open", "high", "low", "close", "volume"]].astype(float)
     data.index = pd.to_datetime(data.index)
+    data = data.sort_index()
 
     data.to_csv(join(data_folder, "processed", data_file))
     print("Data processed and saved to", join(data_folder, "processed", data_file))
