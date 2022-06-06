@@ -2,6 +2,7 @@
 import shutil
 from os.path import isfile, join
 
+import numpy as np
 import pandas as pd
 import requests
 from sacred import Ingredient
@@ -44,6 +45,11 @@ def pull_data(api_url: str, data_file: str, data_folder: str) -> pd.DataFrame:
     data = data[["open", "high", "low", "close", "volume"]].astype(float)
     data.index = pd.to_datetime(data.index)
     data = data.sort_index()
+    # data = data[data.volume != 0]
+    data = data.loc[pd.to_datetime("2019-09-08 19:13:00") :]  # Remove weird points
+    data = data[data.volume != 0]
+    # data.replace(0, np.nan, inplace=True)
+    # data.volume = data.volume.ffill()
 
     data.to_csv(join(data_folder, "processed", data_file))
     print("Data processed and saved to", join(data_folder, "processed", data_file))

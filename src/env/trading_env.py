@@ -8,7 +8,11 @@ from gym import spaces
 from numpy import inf
 from sacred import Ingredient
 
-env_ingredient = Ingredient("env")
+from src.env.trading_graph import graph_ingredient, TradingGraph
+
+# from src.env.trading_graph_v0 import TradingGraph, graph_ingredient
+
+env_ingredient = Ingredient("env", ingredients=[graph_ingredient])
 
 
 @env_ingredient.config
@@ -55,6 +59,7 @@ class TradingEnv(gym.Env):
         self.output_path = output_path
 
         # Define experiment variables
+        self.current_step = None
         self.current_date = None
 
         self.balance = None
@@ -66,7 +71,8 @@ class TradingEnv(gym.Env):
     @env_ingredient.capture
     def reset(self):
         """Reset the environment to a default state"""
-        self.current_date = self.data.index[self.lookback_window]
+        self.current_step = self.lookback_window
+        self.current_date = self.data.index[self.current_step]
 
         self.balance = self.initial_balance
         self.net_worth = self.balance
@@ -84,11 +90,10 @@ class TradingEnv(gym.Env):
 
         self._update_net_worth()
 
-        self.current_date = self.data.loc[self.current_date :].index[1]
-
-        print(
-            f"Balance: {self.balance}, Portfolio: {self.portfolio}, Net-Worth: {self.net_worth}"
-        )
+        self.current_step += 1
+        if self.current_step >= len(self.data):
+            self.current_step = 0
+        self.current_date = self.data.index[self.current_step]
 
     def _buy(self, action: float):
         """Buy a certain amount of assets relative to the action"""
@@ -132,6 +137,20 @@ class TradingEnv(gym.Env):
                     output_file.write(f"{round(self.portfolio, 2)}, ")
                     output_file.write(f"{round(self.net_worth, 2)} ")
                     output_file.write("\n")
+        elif mode == "live":
+            if self.visualization is None:
+                self.visualization = TradingGraph(self.data, self.initial_balance)
+
+            if (
+                self.current_step > self.visualization.window_size
+            ):  # self.visualization.window_size:
+                self.visualization.render(
+                    self.current_step,
+                    self.net_worth,
+                    self.trades,
+                )
+            else:
+                self.visualization.net_worth[self.current_step] = self.net_worth
 
     def _init_csv(self):
         if os.path.isfile(self.output_path):

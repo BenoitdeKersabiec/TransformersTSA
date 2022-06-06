@@ -39,4 +39,4 @@ def test(model_type, model_weights, total_time_steps):
     for t in range(total_time_steps):
         action = model.act()
         env.step(action)
-        env.render(mode="csv")
+        env.render(mode="live")
