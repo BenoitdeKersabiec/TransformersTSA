@@ -9,7 +9,13 @@ setup(
     install_requires=[
         "requests>=2.27.1,<2.28.0",
         "pandas>=1.4.2,<1.5.0",
+        "gym>=0.23.1,<0.24.0",
         "sacred>=0.8.2,<0.9.0",
+        "matplotlib>=3.5.2,<3.6.0",
+        "mplfinance>=0.12.9b1,<0.13",
+        "numpy>=1.22.3,<1.23.0",
+        "torch",
+        # "--pre torch --extra-index-url https://download.pytorch.org/whl/nightly/cpu"
     ],
     python_requires=">=3.9.12,<3.10"
 )

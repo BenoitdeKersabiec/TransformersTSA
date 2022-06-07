@@ -1,12 +1,12 @@
+"""Script to pull/load data"""
 import shutil
 from os.path import isfile, join
-from typing import Dict
 
 import pandas as pd
 import requests
-from sacred import Experiment
+from sacred import Ingredient
 
-data_ingredient = Experiment("data")
+data_ingredient = Ingredient("data")
 
 
 @data_ingredient.config
@@ -43,6 +43,12 @@ def pull_data(api_url: str, data_file: str, data_folder: str) -> pd.DataFrame:
     data.rename(columns={"Volume USDT": "volume"}, inplace=True)
     data = data[["open", "high", "low", "close", "volume"]].astype(float)
     data.index = pd.to_datetime(data.index)
+    data = data.sort_index()
+    # data = data[data.volume != 0]
+    data = data.loc[pd.to_datetime("2019-09-08 19:13:00") :]  # Remove weird points
+    data = data[data.volume != 0]
+    # data.replace(0, np.nan, inplace=True)
+    # data.volume = data.volume.ffill()
 
     data.to_csv(join(data_folder, "processed", data_file))
     print("Data processed and saved to", join(data_folder, "processed", data_file))
@@ -77,8 +83,3 @@ def get_data(data_folder: str, data_file: str, force_pull: bool):
         data = pull_data()
 
     return data
-
-
-@data_ingredient.automain
-def main():
-    get_data()
