@@ -147,7 +147,6 @@ class TradingEnv(gym.Env):
                 self.visualization.render(
                     self.current_step,
                     self.net_worth,
-                    self.trades,
                 )
             else:
                 self.visualization.net_worth[self.current_step] = self.net_worth

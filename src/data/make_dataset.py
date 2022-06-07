@@ -2,7 +2,6 @@
 import shutil
 from os.path import isfile, join
 
-import numpy as np
 import pandas as pd
 import requests
 from sacred import Ingredient
