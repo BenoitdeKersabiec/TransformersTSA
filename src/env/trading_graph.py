@@ -21,7 +21,6 @@ def config():
 
     graph_title = "Agent's performance"
 
-
 class TradingGraph:
     """A stock trading visualization using matplotlib made to render OpenAI gym environments"""
 
