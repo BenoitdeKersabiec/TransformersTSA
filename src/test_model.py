@@ -18,7 +18,7 @@ def config():
     """Store the test experiment parameters"""
     model_type = "RandomModel"
     model_weights = None
-    total_time_steps = 1000
+    total_time_steps = 10000
 
 
 @ex.automain
@@ -39,4 +39,4 @@ def test(model_type, model_weights, total_time_steps):
     for t in range(total_time_steps):
         action = model.act()
         env.step(action)
-        env.render(mode="live")
+        env.render()

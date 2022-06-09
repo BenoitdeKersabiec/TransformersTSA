@@ -22,13 +22,14 @@ def config():
     fee: float = 1e-3
     lookback_window: int = 60
     output_path = "/Users/benoit/Projects/TransformersTSA/results/output.csv"
+    render_mode = "live"
 
 
 # pylint: disable=too-many-instance-attributes
 class TradingEnv(gym.Env):
     """A Trading environment for OpenAI gym"""
 
-    metadata = {"render.modes": ["human", "csv"]}
+    metadata = {"render.modes": ["live", "csv"]}
     visualization = None
 
     # pylint: disable=too-many-arguments
@@ -125,8 +126,9 @@ class TradingEnv(gym.Env):
         current_price = self.data.close.loc[self.current_date]
         self.net_worth = self.balance + self.portfolio * current_price
 
-    def render(self, mode="csv"):
-        if mode == "csv":
+    @env_ingredient.capture
+    def render(self, render_mode):
+        if render_mode == "csv":
             if not self.render_init:
                 self._init_csv()
             else:
@@ -137,7 +139,7 @@ class TradingEnv(gym.Env):
                     output_file.write(f"{round(self.portfolio, 2)}, ")
                     output_file.write(f"{round(self.net_worth, 2)} ")
                     output_file.write("\n")
-        elif mode == "live":
+        elif render_mode == "live":
             if self.visualization is None:
                 self.visualization = TradingGraph(self.data, self.initial_balance)
 
