@@ -21,8 +21,8 @@ def config():
     initial_balance: int = 1000
     fee: float = 1e-3
     lookback_window: int = 60
-    output_path = "/Users/benoit/Projects/TransformersTSA/results/output.csv"
-    render_mode = "live"
+    output_path: str = "/Users/benoit/Projects/TransformersTSA/results/output.csv"
+    render_mode: str = "live"
 
 
 # pylint: disable=too-many-instance-attributes

@@ -12,10 +12,10 @@ data_ingredient = Ingredient("data")
 @data_ingredient.config
 def config():
     """Store data ingredient parameters"""
-    api_url = "https://www.cryptodatadownload.com/cdd/"
-    data_file = "Binance_BTCUSDT_minute.csv"
-    data_folder = "/Users/benoit/Projects/TransformersTSA/data/"
-    force_pull = False
+    api_url: str = "https://www.cryptodatadownload.com/cdd/"
+    data_file: str = "Binance_BTCUSDT_minute.csv"
+    data_folder: str = "/Users/benoit/Projects/TransformersTSA/data/"
+    force_pull: bool = False
 
 
 @data_ingredient.capture

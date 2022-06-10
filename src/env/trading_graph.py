@@ -11,15 +11,8 @@ graph_ingredient = Ingredient("graph")
 @graph_ingredient.config
 def config():
     """Contains the hyper-parameters related to graph-rendering"""
-    volume_chart_height = 0.33
-    window_size = 40
-
-    up_color = "#27A59A"
-    down_color = "#EF534F"
-    up_text_color = "#73D3CC"
-    down_text_color = "#DC2C27"
-
-    graph_title = "Agent's performance"
+    window_size: int = 40
+    graph_title: str = "Agent's performance"
 
 
 class TradingGraph:
